@@ -7,14 +7,16 @@ A basic Sinatra boilerplate for PaymentIntents
 This demo is written in Ruby with the Sinatra framework. To get started, clone the repository locally and run bundler to install dependencies:
 
 ```
-git clone https://git.corp.stripe.com/stripe-internal/sales-elastic-demo && cd sales-elastic-demo
+git clone https://github.com/mattmitchell6/paymentintents-boilerplate-sinatra.git && cd paymentintents-boilerplate-sinatra
 bundle install
 ```
+
+Add your Stripe secret / publishable keys to the .env file (rename sample.env to .env).
 
 Run the application locally:
 
 ```
-PUBLISHABLE_KEY=pk_test_etc SECRET_KEY=sk_test_etc ruby server.rb
+shotgun server.rb
 ```
 
-Navigate to [http://localhost:4567](http://localhost:4567) to view the index page.
+Navigate to [http://localhost:9393](http://localhost:9393) to view the index page.

@@ -1,6 +1,6 @@
-# Billing lab boilerplate
+# PaymentIntents API boilerplate
 
-Use this boilerplate for the SA Billing integration lab.
+A basic Sinatra boilerplate for PaymentIntents
 
 ## Using this demo
 

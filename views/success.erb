@@ -1,0 +1,29 @@
+<div class="container topspace-lg">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="text-center">Success!</h1>
+      <div class="row d-flex justify-content-center margin-top-md">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class=" text-center">
+                    <h4 class="">Thanks for your payment! Your PaymentIntent ID is <%= @paymentIntent.id %>.</h4>
+                    <h3 class="mtm"><%= @item[:name] %></h3>
+                    <img height=240px src="img/<%= @item[:img] %>">
+                  </div>
+                  <div class="mtm">
+                    Amount: $<%= sprintf("%.2f",(0.01 * @paymentIntent.amount)) %><br>
+                    Created: <%= @paymentIntent.created %><br>
+                    Method: <%= @paymentIntent.payment_method %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,68 +6,25 @@
   </div>
   <div class="row">
 
-    <div class="col-md-4 margin-top-lg">
-      <div class="card">
-        <div class="card-body text-center">
-          <h4>Products & Features</h4>
-          A feature of your product here<br>
-          And another feature here<br>
-          Probably one last thing here<br>
-        </div>        
-        <div class="card-header text-center bg-success text-white">
-          <h2>{{plan nickname}}</h2>
-          Great for anyone and everyone, from small businesses to big thinkers.
-          <p class="margin-top-md">
-            Starts at $<%= sprintf("%.2f",(0.01 * 1000)) %> / Month
-          </p>
-          <p>
-            <a href="/signup?plan=plan_id" class="btn btn-lg btn-outline">Sign up</a>
-          </p>
+    <% @items.each do |item| %>
+      <div class="col-md-4 margin-top-lg">
+        <div class="card">
+          <div class="text-center">
+            <img height=240px src="img/<%= item[:img] %>">
+          </div>
+          <div class="card-header text-center bg-<%= item[:color] %> text-white">
+            <h2><%= item[:name] %></h2>
+            production description
+            <p class="margin-top-md">
+              $<%= sprintf("%.2f",(0.01 * item[:amount])) %>
+             <p>
+              <a href="/checkout?itemId=<%= item[:id] %>" class="btn btn-lg btn-outline">Checkout</a>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
 
-    <div class="col-md-4 margin-top-lg">
-      <div class="card">
-        <div class="card-header text-center bg-primary text-white">
-          <h2>{{plan nickname}}</h2>
-          Perfect for larger teams and those with many users.
-          <p class="margin-top-md">
-            Starts at $<%= sprintf("%.2f",(0.01 * 2500)) %> / Month
-          </p>
-          <p>
-            <a href="/signup?plan=plan_id" class="btn btn-lg btn-outline">Sign up</a>
-          </p>
-        </div>
-        <div class="card-body text-center">
-          <h4>Products & Features</h4>
-          A feature of your product here<br>
-          And another feature here<br>
-          Probably one last thing here<br>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4 margin-top-lg">
-      <div class="card">
-        <div class="card-header text-center bg-info text-white">
-          <h2>{{plan nickname}}</h2>
-          Great for anyone and everyone, from small businesses to big thinkers.
-          <p class="margin-top-md">
-            Starts at $<%= sprintf("%.2f",(0.01 * 5000)) %> / Month
-          </p>
-          <p>
-            <a href="/signup?plan=plan_id" class="btn btn-lg btn-outline">Sign up</a>
-          </p>
-        </div>
-        <div class="card-body text-center">
-          <h4>Products & Features</h4>
-          A feature of your product here<br>
-          And another feature here<br>
-          Probably one last thing here<br>
-        </div>
-      </div>
-    </div>
 
   </div>
 </div>

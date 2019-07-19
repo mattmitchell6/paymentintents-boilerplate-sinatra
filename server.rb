@@ -3,6 +3,12 @@ require 'stripe'
 require 'dotenv/load'
 require 'awesome_print'
 
+# enable :sessions
+# set :session_secret, SecureRandom.hex(64)
+use Rack::Session::Cookie, :key => 'rack.session',
+                           :path => '/',
+                           :secret => 'SecureRandom.hex(64)'
+
 # Load keys from env variables
 Stripe.api_key = ENV['SECRET_KEY']
 
@@ -73,6 +79,56 @@ get '/success' do
   erb :success
 end
 
+get '/signup' do
+  @setupIntent = Stripe::SetupIntent.create
+
+  erb :signup
+end
+
+get '/confirm_payment_offsession' do
+  @item = items.find {|item| item[:id] == params[:itemId].to_i}
+  ap @item
+
+  begin
+    @paymentIntent = Stripe::PaymentIntent.create({
+      amount: @item[:amount],
+      currency: 'usd',
+      payment_method_types: ['card'],
+      customer: session[:customer].id,
+      payment_method: session[:customer].payment_method,
+      off_session: true,
+      confirm: true,
+    })
+    ap @paymentIntent
+  rescue Exception => error
+    raise error.message
+  end
+
+  erb :success
+end
+
+post '/signup' do
+  name = params[:cardholderName]
+  paymentMethod = params[:paymentMethod]
+  email = params[:email]
+
+  # This creates a new Customer and attaches the PaymentMethod in one API call.
+  customer = Stripe::Customer.create(
+    name: name,
+    payment_method: paymentMethod,
+    email: email)
+  paymentMethod = Stripe::PaymentMethod.list(customer: customer.id, type: "card").first.id
+  customer[:payment_method] = paymentMethod
+  session[:customer] = customer
+
+  redirect '/'
+end
+
+get '/logout' do
+  session.clear
+  redirect '/'
+end
+
 def generate_payment_response(intent)
   if intent.status == 'requires_action' &&
       intent.next_action.type == 'use_stripe_sdk'
@@ -90,4 +146,8 @@ def generate_payment_response(intent)
     # Invalid status
     return [500, {error: 'Invalid PaymentIntent status'}.to_json]
   end
+end
+
+def signed_up
+  return session[:customer]
 end

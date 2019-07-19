@@ -50,7 +50,6 @@ select {
 }
 label {
   font-weight: normal;
-  text-transform: uppercase;
 }
 .panel-default>.panel-heading {
   background-color: #007F00;

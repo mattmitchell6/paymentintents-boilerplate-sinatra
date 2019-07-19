@@ -42,7 +42,6 @@ cardButton.addEventListener('click', function(event) {
   });
 });
 
-
 function handleServerResponse(response) {
   if (response.error) {
     // Show error from server on payment form

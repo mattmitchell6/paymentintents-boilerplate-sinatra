@@ -1,29 +1,29 @@
-<div class="container topspace-lg">
-  <div class="row">
-    <div class="col-md-12">
-      <h1 class="text-center">Checkout</h1>
-      <div class="row d-flex justify-content-center margin-top-md">
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-12 text-center">
-                  <h3 class=""><%= @item[:name] %></h3>
-                  <div class="">
-                    <img height=240px src="img/<%= @item[:img] %>">
-                  </div>
-                  <div class="mtm">
-                    <!-- Stripe Elements -->
-                    <div id="card-element"></div>
-                    <div id="card-errors" role="alert" class="text-center"></div>
-                    <button class="btn btn-lg btn-primary" id="card-button" data-id="<%= @item[:id] %>" data-loading="Purchasing for $<%= sprintf("%.2f",(0.01 * @item[:amount])) %>...">
-                      Purchase for $<%= sprintf("%.2f",(0.01 * @item[:amount])) %>
-                    </button>
-                    <!-- <script src="https://js.stripe.com/v3/"></script> -->
-                    <script>var stripe = Stripe('<%= ENV['PUBLISHABLE_KEY'] %>');</script>
-                    <script src="/js/checkout.js"></script>
-                    <script src="/js/helpers.js"></script>
-                  </div>
+<div class="row topspace-lg">
+  <div class="col-md-12">
+    <h1 class="text-center">Checkout</h1>
+    <div class="row d-flex justify-content-center margin-top-md">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <h3 class=""><%= @item[:name] %></h3>
+                <div class="">
+                  <img height=240px src="img/<%= @item[:img] %>">
+                </div>
+                <div class="mtm">
+
+                  <% if signed_up %>
+                    <a class="btn btn-lg btn-primary" href="/confirm_payment_offsession?itemId=<%= @item[:id] %>">Purchase for $<%= sprintf("%.2f",(0.01 * @item[:amount])) %> with Payment Method on File</a>
+                    <p class="mts">or enter new payment</p>
+                  <% end %>
+                  <!-- Stripe Elements -->
+                  <div id="card-element"></div>
+                  <div id="card-errors" role="alert" class="text-center"></div>
+                  <button class="btn btn-lg btn-primary" id="card-button" data-id="<%= @item[:id] %>" data-loading="Purchasing for $<%= sprintf("%.2f",(0.01 * @item[:amount])) %>...">
+                    Purchase for $<%= sprintf("%.2f",(0.01 * @item[:amount])) %>
+                  </button>
+
                 </div>
               </div>
             </div>
@@ -33,3 +33,7 @@
     </div>
   </div>
 </div>
+
+<script>var stripe = Stripe('<%= ENV['PUBLISHABLE_KEY'] %>');</script>
+<script src="/js/checkout.js"></script>
+<script src="/js/helpers.js"></script>

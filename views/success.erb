@@ -14,9 +14,9 @@
                     <img height=240px src="img/<%= @item[:img] %>">
                   </div>
                   <div class="mtm">
-                    Amount: $<%= sprintf("%.2f",(0.01 * @paymentIntent.amount)) %><br>
-                    Created: <%= @paymentIntent.created %><br>
-                    Method: <%= @paymentIntent.payment_method %>
+                    <strong>Amount:</strong> $<%= sprintf("%.2f",(0.01 * @paymentIntent.amount)) %><br>
+                    <strong>Created:</strong> <%= Time.at(@paymentIntent.created).strftime("%B %e, %Y at %I:%M %p") %><br>
+                    <strong>Method:</strong> <%= @paymentIntent.payment_method %>
                   </div>
                 </div>
               </div>

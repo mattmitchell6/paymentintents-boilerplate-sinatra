@@ -1,0 +1,49 @@
+<div class="row topspace-lg">
+  <div class="col-md-12">
+    <h1 class="text-center">New Customer Sign Up</h1>
+
+    <div class="row d-flex justify-content-center margin-top-md">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-10 offset-md-1">
+
+                <div class="alert alert-warning" role="alert">
+                  <i class="fa fa-info-circle"></i> I authorise [your business name] to send instructions to the financial institution that issued my card to take payments from my card account in accordance with the terms of my agreement with you.
+                </div>
+
+                <form action="/signup" id="savecard-form" class="mts" method="post">
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input class="form-control" type="email" name="email" placeholder="jdoe@demo.com" value="jdoe@demo.com">
+
+                    <label class="mts">Cardholder Name</label>
+                    <input class="form-control" id="cardholder-name" type="text" name="cardholderName" placeholder="Jane Doe" value="Jane Doe">
+
+                    <!-- Stripe Elements -->
+                    <label class="mts">Card</label>
+                    <div id="card-element"></div>
+                    <div id="card-errors" role="alert" class="text-center"></div>
+                    <button class="btn btn-lg btn-primary" id="card-button"
+                      data-secret="<%= @setupIntent.client_secret %>"
+                      data-loading="Saving Card...">
+                      Save Card
+                    </button>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>var stripe = Stripe('<%= ENV['PUBLISHABLE_KEY'] %>');</script>
+<script src="/js/signup.js"></script>
+<script src="/js/helpers.js"></script>
